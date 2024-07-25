@@ -1,27 +1,25 @@
-pipeline {
+ pipeline {
     agent any
-
     stages {
-        stage('Build') {
+        stage('Build et Test') {
             steps {
-                echo 'Étape de construction en cours...'
-                // Ici, vous pouvez ajouter les commandes pour compiler votre projet
-                // Par exemple : npm run build
+                echo 'Build et Test'
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Étape de test en cours...'
-                // Ici, vous pouvez ajouter les commandes pour tester votre projet
-                // Par exemple : npm test
+        stage('Déploiement en Production') {
+            input {
+                message "Voulez-vous déployer en production ?"
+                ok "Oui, déployons."
+                submitter "admin,devops"
+                parameters {
+                    string(name: 'VERSION', defaultValue: 'latest', description: 'Quelle version souhaitez-vous déployer ?')
+                }
             }
-        }
-        stage('Deploy') {
             steps {
-                echo 'Étape de déploiement en cours...'
-                // Ici, vous pouvez ajouter les commandes pour déployer votre projet
-                // Par exemple : sh 'make deploy'
+                echo "Déploiement de la version ${VERSION} en production."
+                // Votre code pour le déploiement
             }
         }
     }
 }
+ 
