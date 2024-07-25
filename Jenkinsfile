@@ -1,10 +1,12 @@
 pipeline {
     agent any
-
+    triggers {
+        pollSCM('H/2 * * * *')
+    }
     stages {
         stage('Build') {
             steps {
-                echo 'Étape de construction en cours...'
+                echo 'Étape 2 de construction en cours...'
                 // Ici, vous pouvez ajouter les commandes pour compiler votre projet
                 // Par exemple : npm run build
             }
